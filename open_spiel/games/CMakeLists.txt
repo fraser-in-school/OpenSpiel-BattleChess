@@ -94,6 +94,8 @@ set(GAME_SOURCES
   trade_comm.h
   y.cc
   y.h
+  battle_chess.cc
+  battle_chess.h
 )
 
 if (${BUILD_WITH_HANABI})
@@ -332,6 +334,10 @@ add_test(skat_test skat_test)
 add_executable(tic_tac_toe_test tic_tac_toe_test.cc ${OPEN_SPIEL_OBJECTS}
                $<TARGET_OBJECTS:tests>)
 add_test(tic_tac_toe_test tic_tac_toe_test)
+
+add_executable(battle_chess_test battle_chess_test.cc ${OPEN_SPIEL_OBJECTS}
+               $<TARGET_OBJECTS:tests>)
+add_test(battle_chess_test battle_chess_test)
 
 add_executable(laser_tag_test laser_tag_test.cc ${OPEN_SPIEL_OBJECTS}
                $<TARGET_OBJECTS:tests>)
