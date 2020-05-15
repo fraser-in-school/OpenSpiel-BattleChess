@@ -81,6 +81,7 @@ class PyspielTest(absltest.TestCase):
         "tiny_hanabi",
         "turn_based_simultaneous_game",
         "y",
+        "battle_chess",
     ])
 
     if os.environ.get("BUILD_WITH_HANABI", "OFF") == "ON":
@@ -155,6 +156,13 @@ class PyspielTest(absltest.TestCase):
     self.assertFalse(state.is_chance_node())
     self.assertFalse(state.is_terminal())
     self.assertEqual(state.legal_actions(), [0, 1, 2, 3, 4, 5, 6, 7, 8])
+
+  def test_battle_chess(self):
+    game = pyspiel.load_game("battle_chess")
+    state = game.new_initial_state()
+    self.assertFalse(state.is_chance_node())
+    self.assertFalse(state.is_terminal())
+    # self.assertEqual(state.legal_actions(), [0, 1, 2, 3, 4, 5, 6, 7, 8])
 
   def test_game_parameter(self):
     param = pyspiel.GameParameter(True)

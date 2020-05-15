@@ -428,7 +428,7 @@ void BattleChessState::DoApplyAction(Action action) {
 
   SPIEL_CHECK_TRUE(InBounds(r1, c1));
   SPIEL_CHECK_TRUE(InBounds(r2, c2));
-  std::cout<<r1<< "-"<< c1<< "/" << r2 << "-" << c2 <<std::endl;
+  //   std::cout<<r1<< "-"<< c1<< "/" << r2 << "-" << c2 <<std::endl;
   // capture == 0 只是移动棋子，不吃对方棋子
   // capture > 0 吃棋行为
   // 1,2,3 白方 A,D,K

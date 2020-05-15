@@ -31,7 +31,7 @@ from open_spiel.python.algorithms import random_agent
 FLAGS = flags.FLAGS
 
 # Training parameters
-flags.DEFINE_string("checkpoint_dir", "/tmp/dqn_test",
+flags.DEFINE_string("checkpoint_dir", "./tmp/dqn_test",
                     "Directory to save/load the agent.")
 flags.DEFINE_integer("num_train_episodes", int(1e6),
                      "Number of training episodes.")
@@ -76,10 +76,10 @@ def eval_against_random_bots(env, trained_agents, random_agents, num_episodes):
 
 
 def main(_):
-  game = "breakthrough"
+  game = "battle_chess"
   num_players = 2
 
-  env_configs = {"columns": 5, "rows": 5}
+  env_configs = {}
   env = rl_environment.Environment(game, **env_configs)
   info_state_size = env.observation_spec()["info_state"][0]
   num_actions = env.action_spec()["num_actions"]
@@ -107,6 +107,7 @@ def main(_):
     sess.run(tf.global_variables_initializer())
 
     for ep in range(FLAGS.num_train_episodes):
+      # 如果达到了设定的保存的周期
       if (ep + 1) % FLAGS.eval_every == 0:
         r_mean = eval_against_random_bots(env, agents, random_agents, 1000)
         logging.info("[%s] Mean episode rewards %s", ep + 1, r_mean)
