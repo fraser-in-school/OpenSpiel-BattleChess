@@ -90,7 +90,7 @@ class BattleChessState : public State {
   std::vector<Action> LegalActions() const override;
   std::string Serialize() const override;
 
-  void getPiecesStatus();
+  void getPiecesStatus() const;
  protected:
   void DoApplyAction(Action action) override;
 
@@ -135,7 +135,7 @@ class BattleChessGame : public Game {
 
   // gameLength 并没有经过计算现在采用的是国际象棋的数据
   int MaxGameLength() const override {
-    return 17695;
+    return 1000;
   }
   std::unique_ptr<State> DeserializeState(
       const std::string& str) const override;

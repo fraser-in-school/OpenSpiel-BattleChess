@@ -20,7 +20,7 @@
 #include <vector>
 
 #include "open_spiel/game_parameters.h"
-#include "open_spiel/tensor_view.h"
+#include "open_spiel/utils/tensor_view.h"
 
 namespace open_spiel {
 namespace battle_chess {
@@ -284,7 +284,7 @@ void BattleChessState::InitPieces(int color){
 }
 
 // 输出保存棋子的状态
-void BattleChessState::getPiecesStatus() {
+void BattleChessState::getPiecesStatus() const {
     std::cout<< "white piece: " << std::endl;
     for(int i = 0; i < whitePieces.size(); i ++) {
       std::cout<< CellToString(whitePieces[i].pieceType) << " :" << whitePieces[i].row << "-" << whitePieces[i].col << std::endl;
@@ -293,6 +293,13 @@ void BattleChessState::getPiecesStatus() {
     std::cout<< "black piece: " << std::endl;
     for(int i = 0; i < blackPieces.size(); i ++) {
       std::cout<< CellToString(blackPieces[i].pieceType) << " :" << blackPieces[i].row << "-" << blackPieces[i].col << std::endl;
+    }
+
+    std::cout << "board" << std::endl;
+    for(int i = 0; i < 5; i ++){
+      for(int j = 0; j < 5; j ++)
+        std::cout << CellToString(board(i, j));
+      std::cout << std::endl;
     }
   }
 
@@ -342,7 +349,7 @@ void DefenderAction(int r1, int c1, std::vector<std::vector<int>> &defenderActio
   // 4个斜角方向
   int dir2[4][2] = {
     {1, 1},
-    {1 -1},
+    {1, -1},
     {-1, -1},
     {-1, 1},
   };
@@ -389,7 +396,7 @@ void AttackerAction(int r1, int c1, std::vector<std::vector<int>> &attackerActio
   // 4个斜角方向
   int dir2[4][2] = {
     {1, 1},
-    {1 -1},
+    {1, -1},
     {-1, -1},
     {-1, 1},
   };
@@ -460,6 +467,10 @@ void BattleChessState::DoApplyAction(Action action) {
   // 切换 player
   cur_player_ = NextPlayerRoundRobin(cur_player_, kNumPlayers);
   total_moves_++;
+
+  if(total_moves_ >= 1000) {
+    winner_ = 1;
+  }
 }
 
 std::string BattleChessState::ActionToString(Player player,
@@ -723,6 +734,9 @@ std::vector<Action> BattleChessState::LegalActions() const {
 //     std::cout << val[0] << " " <<val[1] << " " << val[2] << " " << val[3] << " " << val[4] << " " << "\n";
 //   }
   std::sort(movelist.begin(), movelist.end());
+  if(movelist.size() == 0) {
+    getPiecesStatus();
+  }
   return movelist;
 }
 
