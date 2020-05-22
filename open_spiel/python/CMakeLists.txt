@@ -9,10 +9,10 @@ elseif(Python_TARGET_VERSION VERSION_GREATER_EQUAL "3.0.0")
   # libpython when a virtual environment is loaded
   find_package(Python3 COMPONENTS Interpreter Development)
   include_directories(SYSTEM ${Python3_INCLUDE_DIRS})
-  if(Python3_VERSION VERSION_LESS Python_TARGET_VERSION)
-    message(FATAL_ERROR
-      "Python found ${Python3_VERSION} < ${Python_TARGET_VERSION}")
-  endif()
+#   if(Python3_VERSION VERSION_LESS Python_TARGET_VERSION)
+#     message(FATAL_ERROR
+#       "Python found ${Python3_VERSION} < ${Python_TARGET_VERSION}")
+#   endif()
 endif()
 
 add_library(pyspiel MODULE
