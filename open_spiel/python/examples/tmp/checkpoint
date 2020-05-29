@@ -1,3 +1,0 @@
-model_checkpoint_path: "dqn_test-1999"
-all_model_checkpoint_paths: "dqn_test-999"
-all_model_checkpoint_paths: "dqn_test-1999"
