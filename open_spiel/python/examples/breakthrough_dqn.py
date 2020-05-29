@@ -104,7 +104,16 @@ def main(_):
             batch_size=FLAGS.batch_size) for idx in range(num_players)
     ]
     saver = tf.train.Saver()
-    sess.run(tf.global_variables_initializer())
+
+    # 模型的初始化
+    init = tf.global_variables_initializer()  # 不存在就初始化变量
+    sess.run(init)
+    if os.path.exists(FLAGS.checkpoint_dir):  # 判断模型是否存在
+        saver.restore(sess, FLAGS.checkpoint_dir)  # 存在就从模型中恢复变量
+        print("load model in " + FLAGS.checkpoint_dir)
+    else:
+        print("can not find model path!")
+    # sess.run(tf.global_variables_initializer())
 
     for ep in range(FLAGS.num_train_episodes):
       if (ep + 1) % FLAGS.eval_every == 0:

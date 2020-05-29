@@ -1,0 +1,6 @@
+model_checkpoint_path: "battle_dqn-9999"
+all_model_checkpoint_paths: "battle_dqn-5999"
+all_model_checkpoint_paths: "battle_dqn-6999"
+all_model_checkpoint_paths: "battle_dqn-7999"
+all_model_checkpoint_paths: "battle_dqn-8999"
+all_model_checkpoint_paths: "battle_dqn-9999"

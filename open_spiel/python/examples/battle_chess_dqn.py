@@ -23,6 +23,7 @@ from absl import flags
 from absl import logging
 import numpy as np
 import tensorflow.compat.v1 as tf
+import os
 
 from open_spiel.python import rl_environment
 from open_spiel.python.algorithms import dqn
@@ -31,18 +32,18 @@ from open_spiel.python.algorithms import random_agent
 FLAGS = flags.FLAGS
 
 # Training parameters
-flags.DEFINE_string("checkpoint_dir", "./tmp/dqn_test",
+flags.DEFINE_string("checkpoint_dir", "./tmp/battle_dqn",
                     "Directory to save/load the agent.")
-flags.DEFINE_integer("num_train_episodes", int(1e6),
+flags.DEFINE_integer("num_train_episodes", int(1e4),
                      "Number of training episodes.")
 flags.DEFINE_integer(
     "eval_every", 1000,
     "Episode frequency at which the DQN agents are evaluated.")
 
 # DQN model hyper-parameters
-flags.DEFINE_list("hidden_layers_sizes", [64, 64],
+flags.DEFINE_list("hidden_layers_sizes", [25, 25],
                   "Number of hidden units in the Q-Network MLP.")
-flags.DEFINE_integer("replay_buffer_capacity", int(1e5),
+flags.DEFINE_integer("replay_buffer_capacity", int(1e4),
                      "Size of the replay buffer.")
 flags.DEFINE_integer("batch_size", 32,
                      "Number of transitions to sample at each learning step.")
@@ -104,7 +105,17 @@ def main(_):
             batch_size=FLAGS.batch_size) for idx in range(num_players)
     ]
     saver = tf.train.Saver()
-    sess.run(tf.global_variables_initializer())
+
+    # 模型的初始化
+
+    if os.path.exists('./tmp/checkpoint'):  # 判断模型是否存在
+        saver.restore(sess, FLAGS.checkpoint_dir + '-9999')  # 存在就从模型中恢复变量
+        print("load model in " + FLAGS.checkpoint_dir)
+    else:
+        init = tf.global_variables_initializer()  # 不存在就初始化变量
+        sess.run(init)
+        print("can not find model path!")
+    # sess.run(tf.global_variables_initializer())
 
     for ep in range(FLAGS.num_train_episodes):
       # 如果达到了设定的保存的周期
