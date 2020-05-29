@@ -17,7 +17,7 @@
 # The following scripts:
 # (optionally) create a virtualenv
 # (optionally) install the pip package dependencies
-# builds open_spiel
+# builds openspiel
 # executes the C++ tests
 # executes the Python tests using the `python3` command.
 # (optionally) runs the Julia tests
