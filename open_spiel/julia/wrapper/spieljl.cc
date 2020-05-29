@@ -27,7 +27,6 @@
 #include "open_spiel/matrix_game.h"
 #include "open_spiel/normal_form_game.h"
 #include "open_spiel/policy.h"
-#include "open_spiel/query.h"
 #include "open_spiel/spiel.h"
 #include "open_spiel/spiel_bots.h"
 #include "open_spiel/spiel_utils.h"
@@ -762,8 +761,4 @@ JLCXX_MODULE define_julia_module(jlcxx::Module& mod) {
                    game, policies, state_to_index, batch_size,
                    include_full_observations, seed, max_unroll_length);
              });
-
-  mod.method("negotiation_item_pool", &open_spiel::query::NegotiationItemPool);
-  mod.method("negotiation_agent_utils",
-             &open_spiel::query::NegotiationAgentUtils);
 }  // NOLINT(readability/fn_size)

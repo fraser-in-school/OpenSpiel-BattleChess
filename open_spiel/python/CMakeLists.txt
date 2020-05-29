@@ -20,6 +20,10 @@ add_library(pyspiel MODULE
   pybind11/algorithms_trajectories.h
   pybind11/bots.cc
   pybind11/bots.h
+  pybind11/games_bridge.cc
+  pybind11/games_bridge.h
+  pybind11/games_negotiation.cc
+  pybind11/games_negotiation.h
   pybind11/game_transforms.cc
   pybind11/game_transforms.h
   pybind11/policy.cc
